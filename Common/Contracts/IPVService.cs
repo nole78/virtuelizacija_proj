@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    // ServiceContract
     public interface IPVDataService
     {
         // TODO: Definisati interfejs koji definiše protokol poruka:

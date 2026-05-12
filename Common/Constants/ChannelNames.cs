@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Services
+namespace Common.Constants
 {
-    class SessionManager
+    class ChannelNames
     {
     }
 }

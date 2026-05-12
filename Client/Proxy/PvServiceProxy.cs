@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Client.Proxy
 {
-    public class WcfProxy : IDisposable
+    // Veza sa serverom
+    // TODO: Imlpementirati IDisposable i zatvarati konekciju sa serverom
+    public class PvServiceProxy : IDisposable
     {
-        // Veza sa serverom
-        // Implementirati IDisposable tako da se konekcija sigurno zatvori čak i ako pukne prenos.
+        // TODO: Implementirati
         public void Dispose()
         {
             throw new NotImplementedException();

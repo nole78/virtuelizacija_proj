@@ -41,15 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ChannelNames.cs" />
+    <Compile Include="Constants\SentinelValues.cs" />
     <Compile Include="Contracts\IPVService.cs" />
+    <Compile Include="Exceptions\PvTransferException.cs" />
+    <Compile Include="Exceptions\PvValidationFault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\PvMeta.cs" />
     <Compile Include="Models\PvSample.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,5 +9,6 @@ namespace Common.PvDataContracts
     public class PvMeta
     {
         // Sadrži FileName, TotalRows, SchemaVersion, RowLimitN
+        // TODO: Implementirati DataContract
     }
 }
