@@ -106,10 +106,3 @@ Data/
 | Delegati i događaji | `Server/Events/TransferEventHub` |
 | Analitika (spike, opseg, temp) | `Server/Analytics/` |
 | Unit testovi | `Client/Tests`, `Server/Tests` |
-
----
-
-## Korisni linkovi
-
-- **GitHub repozitorijum:** https://github.com/nole78/virtuelizacija_proj.git
-- **Dataset:** https://data.openei.org/submissions/6179 (`Floating PV Altamonte FL Data.csv`)
