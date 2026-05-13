@@ -13,27 +13,27 @@ namespace Common.PvDataContracts
         [DataMember]
         public int RowIndex { get; set; }
         [DataMember]
-        public string Day { get; set; }
+        public int Day { get; set; }
         [DataMember]
-        public string Hour { get; set; }
+        public int Hour { get; set; }
         [DataMember]
-        public string AcPwrt { get; set; }
+        public double? AcPwrt { get; set; }
         [DataMember]
-        public string DcVolt { get; set; }
+        public double? DcVolt { get; set; }
         [DataMember]
-        public string Temper { get; set; }
+        public double? Temper { get; set; }
         [DataMember]
-        public string Vl1to2 { get; set; }
+        public double? Vl1to2 { get; set; }
         [DataMember]
-        public string Vl2to3 { get; set; }
+        public double? Vl2to3 { get; set; }
         [DataMember]
-        public string Vl3to1 { get; set; }
+        public double? Vl3to1 { get; set; }
         [DataMember]
-        public string AcCur1 { get; set; }
+        public double? AcCur1 { get; set; }
         [DataMember]
-        public string AcVlt1 { get; set; }
+        public double? AcVlt1 { get; set; }
 
-        public PvSample(int rowIndex, string day, string hour, string acPwrt, string dcVolt, string temper, string vl1to2, string vl2to3, string vl3to1, string acCur1, string acVlt1)
+        public PvSample(int rowIndex, int day, int hour, double? acPwrt, double? dcVolt, double? temper, double? vl1to2, double? vl2to3, double? vl3to1, double? acCur1, double? acVlt1)
         {
             RowIndex = rowIndex;
             Day = day;
