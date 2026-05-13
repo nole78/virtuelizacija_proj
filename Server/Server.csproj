@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +48,7 @@
     <Compile Include="Analytics\CurrentSpikeDetector.cs" />
     <Compile Include="Analytics\DcVoltRangeChecker.cs" />
     <Compile Include="Analytics\ThermalAlarmChecker.cs" />
+    <Compile Include="Config\ThresholdConfig.cs" />
     <Compile Include="Events\TransferEventHub.cs" />
     <Compile Include="Events\TrasnferEventArgs.cs" />
     <Compile Include="Program.cs" />
