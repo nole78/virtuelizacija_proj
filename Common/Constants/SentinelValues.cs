@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Common.Constants
 {
-    class SentinelValues
+    public static class SentinelValues
     {
+        public const double NoData = 32767.0;
+
+        public static double? MapToNull(double value) // Koristi se prilikom parsiranja da se sentinel vrednost mapira na null  (citanje u klijentu)
+            => value == NoData ? (double?)null : value;
     }
 }
