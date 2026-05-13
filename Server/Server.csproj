@@ -51,7 +51,7 @@
     <Compile Include="Events\TrasnferEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\PVService.cs" />
+    <Compile Include="Services\PvDataService.cs" />
     <Compile Include="Storage\RejectWriter.cs" />
     <Compile Include="Storage\SessionWriter.cs" />
     <Compile Include="Validation\SampleValidator.cs" />
