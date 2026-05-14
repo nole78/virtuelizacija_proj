@@ -15,9 +15,12 @@ namespace Client.Proxy
         private bool _disposed = false;
         private IPvDataService _channel;
         private ChannelFactory<IPvDataService> _channelFactory;
-        PvServiceProxy() 
+        public PvServiceProxy() 
         {
-            // TODO: Implementirati
+            // TODO: Promeniti bez hardcodovanog stringa vec is settingsa (Napraviti config folder s klasom na foru kao u serveru da parsira iz settingsa)
+            // ili parametra konstruktora
+            _channelFactory = new ChannelFactory<IPvDataService>("PvDataEndpoint");
+            _channel = _channelFactory.CreateChannel();
         }
         ~PvServiceProxy()
         {
@@ -28,7 +31,6 @@ namespace Client.Proxy
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -50,8 +52,16 @@ namespace Client.Proxy
                 }
                 if (_channelFactory != null)
                 {
-                    _channelFactory.Close();
-                    _channelFactory = null;
+                    try
+                    {
+                        _channelFactory.Close();
+                        _channelFactory = null;
+                    }
+                    catch
+                    {
+                        _channelFactory.Abort();
+                        _channelFactory = null;
+                    }
                 }
             }
             // Oslobodi unmanaged resurse
