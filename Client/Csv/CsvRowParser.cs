@@ -12,7 +12,6 @@ namespace Client
     public class CsvRowParser
     {
 
-        //Pomocna metoda, proverava polja
         public PvSample MapLineToSample(string line, int index)
         {
             try
