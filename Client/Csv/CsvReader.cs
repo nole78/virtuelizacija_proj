@@ -6,13 +6,32 @@ using System.Threading.Tasks;
 
 namespace Client.Csv
 {
-    // TODO: Implementirati IDisposable i zatvarati konekciju sa serverom
     public class CsvReader : IDisposable
     {
         // TODO: Implementirati 
+        private bool _disposed = false;
+
+        CsvReader() {}
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+            if (disposing)
+            {
+                // Oslobodi managed resurse
+            }
+            // Oslobodi unmanaged resurse
+            _disposed = true;
+        }
+        ~CsvReader()
+        {
+            Dispose(false);
         }
     }
 }
