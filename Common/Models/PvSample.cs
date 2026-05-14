@@ -15,7 +15,7 @@ namespace Common.PvDataContracts
         [DataMember]
         public DateTime Day { get; set; }
         [DataMember]
-        public int Hour { get; set; }
+        public TimeSpan Hour { get; set; }
         [DataMember]
         public double? AcPwrt { get; set; }
         [DataMember]
@@ -33,7 +33,7 @@ namespace Common.PvDataContracts
         [DataMember]
         public double? AcVlt1 { get; set; }
 
-        public PvSample(int rowIndex, DateTime day, int hour, double? acPwrt, double? dcVolt, double? temper, double? vl1to2, double? vl2to3, double? vl3to1, double? acCur1, double? acVlt1)
+        public PvSample(int rowIndex, DateTime day, TimeSpan hour, double? acPwrt, double? dcVolt, double? temper, double? vl1to2, double? vl2to3, double? vl3to1, double? acCur1, double? acVlt1)
         {
             RowIndex = rowIndex;
             Day = day;
