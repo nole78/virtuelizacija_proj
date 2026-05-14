@@ -35,8 +35,11 @@ namespace Client.Csv
             if (disposing)
             {
                 // Oslobodi managed resurse
-                _reader.Dispose();
-                _reader = null;
+                if (_reader != null)
+                {
+                    _reader.Dispose();
+                    _reader = null;
+                }
             }
             // Oslobodi unmanaged resurse
             _disposed = true;

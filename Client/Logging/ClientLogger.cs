@@ -41,9 +41,12 @@ namespace Client.Logging
             if (disposing)
             {
                 // Dispose managed resources here
-                _fileStream.Flush();
-                _fileStream.Dispose();
-                _fileStream = null;
+                if(_fileStream != null)
+                {
+                    _fileStream.Flush();
+                    _fileStream.Dispose();
+                    _fileStream = null;
+                }
             }
             // Dispose unmanaged resources here
             _disposed = true;
