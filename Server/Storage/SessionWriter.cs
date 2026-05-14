@@ -38,9 +38,12 @@ namespace Server.Storage
             if (disposing)
             {
                 // Oslobodi managed resurse
-                _fileStream.Flush();
-                _fileStream.Dispose();
-                _fileStream = null;
+                if (_fileStream != null)
+                {
+                    _fileStream.Flush();
+                    _fileStream.Dispose();
+                    _fileStream = null;
+                }
             }
             // Oslobodi unmanaged resurse
             _disposed = true;
