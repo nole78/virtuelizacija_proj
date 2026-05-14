@@ -1,18 +1,24 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Client.Proxy
 {
     // Veza sa serverom
-    // TODO: Zatvarati konekciju sa serverom
     public class PvServiceProxy : IDisposable
     {
         // TODO: Implementirati
         private bool _disposed = false;
-        PvServiceProxy() { }
+        private IPvDataService _channel;
+        private ChannelFactory<IPvDataService> _channelFactory;
+        PvServiceProxy() 
+        {
+            // TODO: Implementirati
+        }
         ~PvServiceProxy()
         {
             Dispose(false);
@@ -30,6 +36,23 @@ namespace Client.Proxy
             if (disposing)
             {
                 // Oslobodi managed resurse
+                if (_channel != null)
+                {
+                    try
+                    {
+                        ((IClientChannel)_channel).Close();
+                    }
+                    catch
+                    {
+                        ((IClientChannel)_channel).Abort();
+                    }
+                    _channel = null;
+                }
+                if (_channelFactory != null)
+                {
+                    _channelFactory.Close();
+                    _channelFactory = null;
+                }
             }
             // Oslobodi unmanaged resurse
             _disposed = true;
