@@ -21,7 +21,7 @@ namespace Client.Logging
         public void WriteRow(PvSample sample)
         {
             // TODO: upisi sve kolone u fajl, trenutno se upisuje samo 3 kolone (Day, Hour, AcPwrt) zbog testiranja
-            string line = $"{sample.Day:o},{sample.Hour},{sample.AcPwrt}";
+            string line = $"{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}";
             byte[] lineInBytes = new UTF8Encoding(true).GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
         }

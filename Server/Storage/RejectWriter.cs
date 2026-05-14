@@ -20,7 +20,7 @@ namespace Server.Storage
         public void WriteRow(PvSample sample, string reason)
         {
             // TODO: Napraviti tako da se upisuju i ostali podaci, ne samo AcPwrt
-            string line = $"{reason},{sample.Day:o},{sample.Hour},{sample.AcPwrt}\n";
+            string line = $"{reason},{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}\n";
             byte[] lineInBytes = new UTF8Encoding().GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
         }
