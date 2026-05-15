@@ -21,6 +21,8 @@ namespace Client.Csv
 
         public string ReadLine()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(nameof(CsvReader), "Pokušaj citanje iz već zatvorenog CsvReader.");
             return _reader.ReadLine();
         }
         public void Dispose()

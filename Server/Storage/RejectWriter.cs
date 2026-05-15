@@ -13,13 +13,15 @@ namespace Server.Storage
         // TODO: Napraviti tako da radi upis u odgovarajuci folder
         private bool _disposed = false;
         private FileStream _fileStream;
-        public RejectWriter() 
+        public RejectWriter(string path) 
         {
-            _fileStream = new FileStream("rejects.csv", FileMode.Append, FileAccess.Write);
+            _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write);
         }
         public void WriteRow(PvSample sample, string reason)
         {
             // TODO: Napraviti tako da se upisuju i ostali podaci, ne samo AcPwrt
+            if(_disposed)
+                throw new ObjectDisposedException(nameof(RejectWriter), "Pokušaj pisanja u već zatvoreni RejectWriter.");
             string line = $"{reason},{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}\n";
             byte[] lineInBytes = new UTF8Encoding().GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
