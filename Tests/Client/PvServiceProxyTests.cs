@@ -6,7 +6,7 @@ using Common;
 using System.ServiceModel;
 using Common.PvDataContracts;
 
-namespace Tests
+namespace Tests.Client
 {
     [TestFixture]
     public class PvServiceProxyTests

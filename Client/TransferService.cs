@@ -22,7 +22,7 @@ namespace Client
         public void Run()
         {
             using (var proxy = new PvServiceProxy()) // pravi konstruktor bez parametra
-            using (var csvReader = new CsvReader())
+            using (var csvReader = new CsvReader(_meta.FileName))
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace Client
         public void RunWithSimulatedFailure()
         {
             using (var proxy = new PvServiceProxy())
-            using (var csvReader = new CsvReader())
+            using (var csvReader = new CsvReader(_meta.FileName))
             {
                 try
                 {

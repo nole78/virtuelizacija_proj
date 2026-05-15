@@ -1,10 +1,6 @@
-﻿using Common.PvDataContracts;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Logging
 {
@@ -13,15 +9,16 @@ namespace Client.Logging
         // TODO: Imlementirati logger za rejected_client.csv (pise u fajl)
         private bool _disposed = false;
         private FileStream _fileStream;
-        public ClientLogger() 
+        public ClientLogger(string path) 
         {
             // TODO: Nem pojma u koji folder treba ovaj fajl da se smesti, pa sam ga stavio u root folder projekta
-            _fileStream = new FileStream("rejected_client.csv", FileMode.Append, FileAccess.Write, FileShare.Read);
+            _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Read);
         }
-        public void WriteRow(PvSample sample)
+        public void Log(string message)
         {
-            // TODO: upisi sve kolone u fajl, trenutno se upisuje samo 3 kolone (Day, Hour, AcPwrt) zbog testiranja
-            string line = $"{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}";
+            if(_disposed)
+                throw new ObjectDisposedException(nameof(ClientLogger), "Pokušaj pisanja u već zatvoreni ClientLogger.");
+            string line = message;
             byte[] lineInBytes = new UTF8Encoding(true).GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
         }

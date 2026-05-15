@@ -13,12 +13,15 @@ namespace Server.Storage
         // TODO: Napraviti tako da radi upis u odgovarajuci folder
         private bool _disposed = false;
         private FileStream _fileStream;
-        SessionWriter() {
-            _fileStream = new FileStream("sessions.csv", FileMode.Append, FileAccess.Write);
+        public SessionWriter(string path) 
+        {
+            _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write);
         }
         public void WriteRow(PvSample sample)
         {
             // TODO: Napraviti tako da se upisuju i ostali podaci, ne samo AcPwrt
+            if (_disposed)
+                throw new ObjectDisposedException(nameof(SessionWriter), "Pokušaj pisanja u već zatvoreni SessionWriter.");
             string line = $"{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}\n";
             byte[] lineInBytes = new UTF8Encoding().GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
@@ -29,7 +32,8 @@ namespace Server.Storage
         }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
         protected virtual void Dispose(bool disposing)
         {

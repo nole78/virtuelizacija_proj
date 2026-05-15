@@ -12,14 +12,16 @@ namespace Client.Csv
         // TODO: Implementirati 
         private bool _disposed = false;
         private StreamReader _reader;
-        public CsvReader() 
+        public CsvReader(string path) 
         {
             // TODO: premini fajl, stavi da se uzima iz parametra konstuktora
-            _reader = new StreamReader("data.csv");
+            _reader = new StreamReader(path);
         }
 
         public string ReadLine()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(nameof(CsvReader), "Pokušaj citanje iz već zatvorenog CsvReader.");
             return _reader.ReadLine();
         }
         public void Dispose()
