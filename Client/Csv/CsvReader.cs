@@ -9,13 +9,14 @@ namespace Client.Csv
 {
     public class CsvReader : IDisposable
     {
-        // TODO: Implementirati 
         private bool _disposed = false;
         private StreamReader _reader;
-        public CsvReader(string path) 
+        public CsvReader(string filePath) 
         {
-            // TODO: premini fajl, stavi da se uzima iz parametra konstuktora
-            _reader = new StreamReader(path);
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentNullException("File path must be filled in", nameof(filePath));
+
+            _reader = new StreamReader(filePath);
         }
 
         public string ReadLine()

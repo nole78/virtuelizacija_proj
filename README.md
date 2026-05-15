@@ -40,10 +40,8 @@ Client/
 │   └── ClientLogger.cs         # Upisuje odbačene redove u rejected_client.csv
 ├── TransferService.cs           # Orchestracija: otvara sesiju, šalje redove, zatvara sesiju
 ├── Program.cs                   # Entry point
-├── App.config                   # netTcpBinding konfiguracija, RowLimitN (npr. 100–200)
-└── Tests/
-    ├── CsvRowParserTests.cs     # [Unit] parsiranje redova, edge case-ovi
-    └── SentinelMappingTests.cs  # [Unit] mapiranje sentinel vrednosti na null
+└── App.config                   # netTcpBinding konfiguracija, RowLimitN (npr. 100–200)
+
 ```
 
 ---
@@ -72,10 +70,6 @@ Server/
 ├── App.config                   # Pragovi: OverTempThreshold, VoltageImbalancePct,
 │                               #   PowerFlatlineWindow, AcCur1SpikeThreshold, DcVoltMin/Max
 └── Tests/
-    ├── SampleValidatorTests.cs          # [Unit] validacija uzoraka
-    ├── CurrentSpikeDetectorTests.cs     # [Unit] detekcija skoka struje
-    ├── DcVoltRangeCheckerTests.cs       # [Unit] provera DC napona
-    ├── ThermalAlarmCheckerTests.cs      # [Unit] termalni alarm
     └── SessionWriterDisposeTests.cs     # [Unit] dokazuje pravilno zatvaranje resursa (Dispose pattern)
 ```
 
