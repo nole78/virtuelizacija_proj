@@ -12,7 +12,7 @@ namespace Client.Csv
         // TODO: Implementirati 
         private bool _disposed = false;
         private StreamReader _reader;
-        CsvReader() 
+        public CsvReader() 
         {
             // TODO: premini fajl, stavi da se uzima iz parametra konstuktora
             _reader = new StreamReader("data.csv");

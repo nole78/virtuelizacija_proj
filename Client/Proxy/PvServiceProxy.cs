@@ -21,6 +21,12 @@ namespace Client.Proxy
             _channel = _channelFactory.CreateChannel();
         }
 
+        public PvServiceProxy(IPvDataService channel, ChannelFactory<IPvDataService> factory = null)
+        {
+            _channelFactory = factory;
+            _channel = channel;
+        }
+
         // Dodati metode koje pozivaju server
         public void StartSession(PvMeta meta)
         {
@@ -67,6 +73,7 @@ namespace Client.Proxy
                         ((IClientChannel)_channel).Abort();
                     }
                     _channel = null;
+                    Console.WriteLine("[DISPOSE] Kanal uspešno zatvoren.");
                 }
                 if (_channelFactory != null)
                 {
