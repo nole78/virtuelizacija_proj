@@ -48,11 +48,5 @@ namespace Client
                 return null;
             }
         }
-
-        public void LogRejectedRow(string line, int index)
-        {
-            string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | Row {index} | Data: {line}{Environment.NewLine}";
-            File.AppendAllText("rejected_client.csv", logEntry);
-        }
     }
 }

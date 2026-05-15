@@ -15,7 +15,9 @@ namespace Client
         {
             // TODO: dodaj konfiguraciju, parser i onda pokreni ovo da radi
             // TODO: dodaj ostala polja u meta i pravu putanju ka fajlu
-            var meta = new PvMeta { FileName = "data.csv"};
+            string csvPath = ConfigurationManager.AppSettings["CsvFilePath"];
+            int limitN = int.Parse(ConfigurationManager.AppSettings["RowLimitN"]);
+            var meta = new PvMeta { FileName = csvPath,RowLimitN = limitN};
             var service = new TransferService(meta);
 
             string izbor = "";
@@ -37,38 +39,11 @@ namespace Client
         private static string PrintMenu()
         {
             Console.WriteLine();
+            Console.WriteLine("SOLARNI PANELI");
             Console.WriteLine("1 - Normalan prenos");
             Console.WriteLine("2 - Simulacija prekida");
             Console.WriteLine("KRAJ - Izlaz");
             return Console.ReadLine();
         }
-      /*
-            // Sljanje do N redova serveru u petlji
-            string csvPath = ConfigurationManager.AppSettings["CsvFilePath"];
-            int limitN = int.Parse(ConfigurationManager.AppSettings["RowLimitN"]);
-
-            var samples = new List<PvSample>();
-            var parser = new CsvRowParser();
-
-            using (var reader = new CsvReader(csvPath))
-            {
-                reader.ReadLine();
-                int currentRow = 1;
-                while (samples.Count < limitN)
-                {
-                    string line = reader.ReadLine();
-                    if (line == null) break; // Kraj fajla
-
-                    var sample = parser.MapLineToSample(line, currentRow);
-
-                    if (sample != null)
-                        samples.Add(sample);
-                    else
-                        parser.LogRejectedRow(line, currentRow);
-
-                    currentRow++;
-                }
-            }
-        */
     }
 }
