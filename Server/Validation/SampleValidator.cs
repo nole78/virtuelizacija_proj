@@ -1,6 +1,7 @@
 ﻿using Common.PvDataContracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +24,15 @@ namespace Server.Validation
                 return Fail($"RowIndex nije monoton: primljeno {sample.RowIndex}, prethodni {_lastRowIndex}");
             _lastRowIndex = sample.RowIndex;
 
-            // 2. DAY i HOUR – nenegativni
-            if (sample.Day < 0)
-                return Fail($"DAY je negativan: {sample.Day}");
-            if (sample.Hour < 0 || sample.Hour > 23)
-                return Fail($"HOUR van opsega: {sample.Hour}");
-
-            // 3. Struje >= 0 (kad nije null/sentinel)
+            // 2. Struje >= 0 (kad nije null/sentinel)
             if (sample.AcPwrt.HasValue && sample.AcPwrt.Value < 0)
                 return Fail($"AcPwrt je negativan: {sample.AcPwrt}");
 
             // TODO: Dodati ako treba i za AcCur1
+            if(sample.AcCur1.HasValue)
+                return Fail("AcCur1 ne sme biti sentinel");
 
-            // 4. Naponi > 0 kad nisu null
+            // 3. Naponi > 0 kad nisu null
             if (sample.DcVolt.HasValue && sample.DcVolt.Value <= 0)
                 return Fail($"DcVolt mora biti > 0: {sample.DcVolt}");
             if (sample.Vl1to2.HasValue && sample.Vl1to2.Value <= 0)
@@ -47,8 +44,10 @@ namespace Server.Validation
             if (sample.AcVlt1.HasValue && sample.AcVlt1.Value <= 0)
                 return Fail($"AcVlt1 mora biti > 0: {sample.AcVlt1}");
 
-            // 6. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
+            // 4. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
             // Ovde samo proveravamo da nije sentinel (to je već null ako je pravilno parsirano)
+            if(sample.Temper.HasValue)
+                return Fail("Temperatura ne sme biti sentinel");
 
             return new ValidationResult { IsValid = true };
         }
