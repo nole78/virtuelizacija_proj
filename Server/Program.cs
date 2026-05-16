@@ -12,7 +12,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            ServiceHost host = new ServiceHost(typeof(PvDataService));
+            PvDataService service = new PvDataService();
+            ServiceHost host = new ServiceHost(service);
             host.Open();
 
             Console.WriteLine("SERVICE OPEN");

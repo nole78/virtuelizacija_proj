@@ -2,6 +2,7 @@
 using Common.PvDataContracts;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -11,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    //Dispose zbog SW-a
+    //Dispose zbog SW-a, servicebehaviour se odnosi na zivotni vek ove klase, pravim jednu instancu, te ta instanca usluzuje sve klijente koji se ikada povezu
+    //(u prevodi bez ovoga Program.cs nije hteo da radi kako sam ja zamislila)
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class PvDataService : IPvDataService, IDisposable
     {
         private StreamWriter _sessionWriter;
@@ -21,7 +24,6 @@ namespace Server
         private bool _sessionActive = false;
         private bool _disposed = false;
 
-        // TODO: Realizovati metode (šta se desi kad klijent pozove PushSample)
         [OperationBehavior(AutoDisposeParameters = true)]
         public void EndSession()
         {
@@ -44,7 +46,40 @@ namespace Server
         [OperationBehavior(AutoDisposeParameters = true)]
         public void StartSession(PvMeta meta)
         {
-            
+            if (_sessionActive)
+            {
+                CloseCurrentSession();
+            }
+
+            _currentMeta = meta;
+
+            //Kreiranje putanje
+            string date = DateTime.Today.ToString("yyyy-MM-dd");
+            string plantId = ConfigurationManager.AppSettings["PlantId"];
+            _sessionDir = Path.Combine("Data", plantId, date);
+            Directory.CreateDirectory(_sessionDir);
+
+            string sessionPath = Path.Combine(_sessionDir, "session.csv");
+            string rejectPath = Path.Combine(_sessionDir, "rejects.csv");
+
+            _sessionWriter = new StreamWriter(new FileStream(sessionPath, FileMode.Append, FileAccess.Write, FileShare.Read), Encoding.UTF8);
+            _rejectWriter = new StreamWriter(new FileStream(rejectPath, FileMode.Append, FileAccess.Write, FileShare.Read), Encoding.UTF8);
+            //Ovo ovde je samo za ispis zaglavlja, ako nije nov fajl, vec ima zagavlje, ego ne pisemo ga
+            bool rejectExists = File.Exists(rejectPath);
+            if (!rejectExists)
+            {
+                _rejectWriter.WriteLine("RowIndex,Reason,RawInput");
+            }
+
+            bool sessionExists = File.Exists(sessionPath);
+            if (!sessionExists)
+            {
+                _rejectWriter.WriteLine("RowIndex,Reason,RawInput");
+            }
+
+            _sessionActive = true;
+            Console.WriteLine($"[START_SESSION] Sesija otvorena: {_sessionDir}");
+            Console.WriteLine($"    Fajl: {meta.FileName}, Redovi: {meta.TotalRows}, Ucitani redovi: {meta.RowLimitN}");
         }
 
         private void CloseCurrentSession()
@@ -56,7 +91,7 @@ namespace Server
             _sessionWriter = null;
 
             _rejectWriter?.Close();
-            _rejectWriter.Dispose();
+            _rejectWriter?.Dispose();
             _rejectWriter = null;
         }
 
@@ -70,7 +105,6 @@ namespace Server
         {
             if (!_disposed)
             {
-                // Free the unmanaged resource anytime.
                 if (disposing)
                 {
                     if (_sessionWriter != null)
