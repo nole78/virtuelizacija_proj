@@ -17,7 +17,7 @@ namespace Client
             try
             {
                 string[] parts = line.Split(',');
-                if (parts.Length < 11) return null;
+                if (parts.Length < 15) return null;
 
                 //Ovo je samo da obezbedi da ce se vrednosti ispravno citati na ma kojem racunaru (lupam, za decimalne vrednosti . umesto ,)
                 var culture = CultureInfo.InvariantCulture;
@@ -39,12 +39,12 @@ namespace Client
                     Hour = timeValue,
                     AcPwrt = Common.Constants.SentinelValues.CheckSentinel(parts[3]),
                     DcVolt = Common.Constants.SentinelValues.CheckSentinel(parts[4]),
-                    Temper = Common.Constants.SentinelValues.CheckSentinel(parts[5]),
-                    Vl1to2 = Common.Constants.SentinelValues.CheckSentinel(parts[6]),
-                    Vl2to3 = Common.Constants.SentinelValues.CheckSentinel(parts[7]),
-                    Vl3to1 = Common.Constants.SentinelValues.CheckSentinel(parts[8]),
-                    AcCur1 = Common.Constants.SentinelValues.CheckSentinel(parts[9]),
-                    AcVlt1 = Common.Constants.SentinelValues.CheckSentinel(parts[10]),
+                    Temper = Common.Constants.SentinelValues.CheckSentinel(parts[6]),
+                    Vl1to2 = Common.Constants.SentinelValues.CheckSentinel(parts[7]),
+                    Vl2to3 = Common.Constants.SentinelValues.CheckSentinel(parts[8]),
+                    Vl3to1 = Common.Constants.SentinelValues.CheckSentinel(parts[9]),
+                    AcCur1 = Common.Constants.SentinelValues.CheckSentinel(parts[10]),
+                    AcVlt1 = Common.Constants.SentinelValues.CheckSentinel(parts[13]),
 
                 };
             }

@@ -36,7 +36,7 @@ namespace Client
 
                     PvSample sample;
                     int currentRow = 0;
-                    while (currentRow < _meta.RowLimitN)
+                    while (currentRow <= _meta.RowLimitN)
                     {
                         string line = csvReader.ReadLine();
                         if (line == null) break; // Kraj fajla

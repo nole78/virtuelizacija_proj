@@ -16,11 +16,11 @@ namespace Server
             ServiceHost host = new ServiceHost(service);
             host.Open();
 
-            Console.WriteLine("SERVICE OPEN");
+            Console.WriteLine("[SERVICE OPEN]");
             Console.ReadKey();
 
             host.Close();
-            Console.WriteLine("SERVICE CLOSED");
+            Console.WriteLine("[SERVICE CLOSED]");
         }
     }
 }
