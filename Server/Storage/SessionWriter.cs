@@ -15,14 +15,25 @@ namespace Server.Storage
         private FileStream _fileStream;
         public SessionWriter(string path) 
         {
-            _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write);
+            if (File.Exists(path))
+            {
+                _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Read);
+            }
+            else
+            {
+                _fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+                string header = "RowIndex,Day,Hour,AcPwrt,DcVolt,Temper,Vl1to2,Vl2to3,Vl3to1,AcCur1,AcVlt1\n";
+                _fileStream.Write(new UTF8Encoding().GetBytes(header), 0, new UTF8Encoding().GetByteCount(header));
+            }
         }
         public void WriteRow(PvSample sample)
         {
             // TODO: Napraviti tako da se upisuju i ostali podaci, ne samo AcPwrt
             if (_disposed)
                 throw new ObjectDisposedException(nameof(SessionWriter), "Pokušaj pisanja u već zatvoreni SessionWriter.");
-            string line = $"{sample.Day:yyyy-MM-dd},{sample.Hour},{sample.AcPwrt}\n";
+            string line =   $"{sample.RowIndex},{sample.Day},{sample.Hour},{sample.AcPwrt},{sample.DcVolt},"
+                          + $"{sample.Temper},{sample.Vl1to2},{sample.Vl2to3},{sample.Vl3to1},{sample.AcCur1},{sample.AcVlt1}";
+
             byte[] lineInBytes = new UTF8Encoding().GetBytes(line + Environment.NewLine);
             _fileStream.Write(lineInBytes, 0, lineInBytes.Length);
         }
@@ -47,6 +58,7 @@ namespace Server.Storage
                     _fileStream.Flush();
                     _fileStream.Dispose();
                     _fileStream = null;
+                    Console.WriteLine("[DISPOSE] Session writer uspešno zatvoren.");
                 }
             }
             // Oslobodi unmanaged resurse
