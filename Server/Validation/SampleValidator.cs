@@ -33,8 +33,9 @@ namespace Server.Validation
                 return Fail("AcCur1 ne sme biti sentinel");
 
             // 3. Naponi > 0 kad nisu null
-            if (sample.DcVolt.HasValue && sample.DcVolt.Value <= 0)
+            if (!sample.DcVolt.HasValue || sample.DcVolt.Value <= 0)
                 return Fail($"DcVolt mora biti > 0: {sample.DcVolt}");
+
             if (sample.Vl1to2.HasValue && sample.Vl1to2.Value <= 0)
                 return Fail($"Vl1to2 mora biti > 0: {sample.Vl1to2}");
             if (sample.Vl2to3.HasValue && sample.Vl2to3.Value <= 0)
@@ -45,7 +46,6 @@ namespace Server.Validation
                 return Fail($"AcVlt1 mora biti > 0: {sample.AcVlt1}");
 
             // 4. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
-            // Ovde samo proveravamo da nije sentinel (to je već null ako je pravilno parsirano)
             if(!sample.Temper.HasValue)
                 return Fail("Temperatura ne sme biti sentinel");
 
