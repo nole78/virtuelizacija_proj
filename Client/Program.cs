@@ -3,6 +3,7 @@ using Common.PvDataContracts;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +14,26 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            // TODO: dodaj konfiguraciju, parser i onda pokreni ovo da radi
-            // TODO: dodaj ostala polja u meta i pravu putanju ka fajlu
             string csvPath = ConfigurationManager.AppSettings["CsvFilePath"];
             int limitN = int.Parse(ConfigurationManager.AppSettings["RowLimitN"]);
-            var meta = new PvMeta { FileName = csvPath,RowLimitN = limitN};
+            int totalRows = 0;
+            if (File.Exists(csvPath))
+            {
+                totalRows = File.ReadLines(csvPath).Count() - 1;
+            }
+            else
+            {
+                Console.WriteLine($"[ERROR] Fajl na putanji {csvPath} ne postoji!");
+                Console.ReadKey();
+                return;
+            }
+            //Nemam blage veze sta da radim sa SchemaVersion-om
+            var meta = new PvMeta { FileName = csvPath, TotalRows = totalRows, SchemaVersion = "1.0", RowLimitN = limitN};
+
             var service = new TransferService(meta);
 
             string izbor = "";
-            while(izbor != "KRAJ")
+            while(!izbor.Equals("KRAJ"))
                 switch (PrintMenu())
                 {
                     case "1":
@@ -29,6 +41,9 @@ namespace Client
                         break;
                     case "2":
                         service.RunWithSimulatedFailure();
+                        break;
+                    case "KRAJ":
+                        izbor = "KRAJ";
                         break;
                     default:
                         Console.WriteLine("Nepoznat izbor");
