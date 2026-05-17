@@ -29,7 +29,7 @@ namespace Server.Validation
                 return Fail($"AcPwrt je negativan: {sample.AcPwrt}");
 
             // TODO: Dodati ako treba i za AcCur1
-            if(sample.AcCur1.HasValue)
+            if(!sample.AcCur1.HasValue)
                 return Fail("AcCur1 ne sme biti sentinel");
 
             // 3. Naponi > 0 kad nisu null
@@ -46,7 +46,7 @@ namespace Server.Validation
 
             // 4. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
             // Ovde samo proveravamo da nije sentinel (to je već null ako je pravilno parsirano)
-            if(sample.Temper.HasValue)
+            if(!sample.Temper.HasValue)
                 return Fail("Temperatura ne sme biti sentinel");
 
             return new ValidationResult { IsValid = true };
