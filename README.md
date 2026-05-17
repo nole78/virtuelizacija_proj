@@ -38,9 +38,9 @@ Client/
 │   └── PvServiceProxy.cs       # WCF proxy ka serveru, implementira IDisposable
 ├── Logging/
 │   └── ClientLogger.cs         # Upisuje odbačene redove u rejected_client.csv
-├── TransferService.cs           # Orchestracija: otvara sesiju, šalje redove, zatvara sesiju
-├── Program.cs                   # Entry point
-└── App.config                   # netTcpBinding konfiguracija, RowLimitN (npr. 100–200)
+├── TransferService.cs          # Orchestracija: otvara sesiju, šalje redove, zatvara sesiju
+├── Program.cs                  # Entry point
+└── App.config                  # netTcpBinding konfiguracija, RowLimitN (npr. 100–200)
 
 ```
 
@@ -66,11 +66,10 @@ Server/
 │   └── ThermalAlarmChecker.cs  # Zadatak 10 — Temper > OverTempThreshold
 ├── Validation/
 │   └── SampleValidator.cs      # Provera vrednosti uzorka (nenegativnost, monoton RowIndex, ...)
-├── Program.cs                   # Entry point, host WCF servisa
-├── App.config                   # Pragovi: OverTempThreshold, VoltageImbalancePct,
-│                               #   PowerFlatlineWindow, AcCur1SpikeThreshold, DcVoltMin/Max
-└── Tests/
-    └── SessionWriterDisposeTests.cs     # [Unit] dokazuje pravilno zatvaranje resursa (Dispose pattern)
+├── Program.cs                  # Entry point, host WCF servisa
+└── App.config                  # Pragovi: OverTempThreshold, VoltageImbalancePct,
+                                #   PowerFlatlineWindow, AcCur1SpikeThreshold, DcVoltMin/Max
+
 ```
 
 ---
