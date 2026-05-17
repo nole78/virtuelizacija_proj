@@ -42,6 +42,7 @@ namespace Client.Csv
                 {
                     _reader.Dispose();
                     _reader = null;
+                    Console.WriteLine("[DISPOSE] Csv Reader uspešno zatvoren.");
                 }
             }
             // Oslobodi unmanaged resurse

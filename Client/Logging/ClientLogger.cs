@@ -43,6 +43,7 @@ namespace Client.Logging
                     _fileStream.Flush();
                     _fileStream.Dispose();
                     _fileStream = null;
+                    Console.WriteLine("[DISPOSE] Client Logger uspešno zatvoren.");
                 }
             }
             // Dispose unmanaged resources here
