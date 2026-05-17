@@ -46,7 +46,7 @@ namespace Client
                         if (sample != null)
                             proxy.PushSample(sample);
                         else
-                            clientLogger.Log($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | Row {currentRow} | Data: {line}{Environment.NewLine}");
+                            clientLogger.Log($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | Row {currentRow} | Data: {line}");
 
                         currentRow++;
                     }
