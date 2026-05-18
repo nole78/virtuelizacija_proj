@@ -27,7 +27,7 @@ namespace Client.Proxy
             _channel = channel;
         }
 
-        // Dodati metode koje pozivaju server
+
         public void StartSession(PvMeta meta)
         {
             if (_disposed)

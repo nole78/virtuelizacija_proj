@@ -19,7 +19,6 @@ namespace Common.Constants
             // string -> double
             if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsedValue))
             {
-                // Kad dobijem double, pozivam tvoju f-ju
                 return MapToNull(parsedValue);
             }
 

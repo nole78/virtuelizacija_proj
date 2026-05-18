@@ -55,7 +55,7 @@ namespace Client
 
         }
 
-        //Pomocna metoda, ni ispravka nije radila :(
+        //Pomocna metoda
         private DateTime? ParseJulianDate(string value, System.Globalization.CultureInfo culture)
         {
             //Cak i ako je dan, recimo, 12. u godini, format ce svejedno imati 7 cifara -> "2026012" 

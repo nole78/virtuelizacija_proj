@@ -6,12 +6,10 @@ namespace Client.Logging
 {
     public class ClientLogger : IDisposable
     {
-        // TODO: Imlementirati logger za rejected_client.csv (pise u fajl)
         private bool _disposed = false;
         private FileStream _fileStream;
         public ClientLogger(string path) 
         {
-            // TODO: Nem pojma u koji folder treba ovaj fajl da se smesti, pa sam ga stavio u root folder projekta
             _fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Read);
         }
         public void Log(string message)

@@ -15,8 +15,6 @@ using System.Threading;
 
 namespace Server
 {
-    //pravim jednu instancu, te ta instanca usluzuje sve klijente koji se ikada povezu
-    //(u prevodi bez ovoga Program.cs nije hteo da radi kako sam ja zamislila)
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class PvDataService : IPvDataService
     {
@@ -41,7 +39,7 @@ namespace Server
                 return;
             }
 
-            Console.WriteLine($"[STATUS] Prenos u završen... Primljeno redova: {_receivedSamplesCount} ({_procenat:F2}%)");
+            Console.WriteLine($"[STATUS] Prenos završen... Primljeno redova: {_receivedSamplesCount} ({_procenat:F2}%)");
             Console.WriteLine("[END_SESSION] Sesija zatvorena, resursi su oslobodjeni");
             CloseCurrentSession();
         }

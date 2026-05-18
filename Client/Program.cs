@@ -27,7 +27,7 @@ namespace Client
                 Console.ReadKey();
                 return;
             }
-            //Nemam blage veze sta da radim sa SchemaVersion-om
+            
             var meta = new PvMeta { FileName = csvPath, TotalRows = totalRows, SchemaVersion = "1.0", RowLimitN = limitN};
 
             var service = new TransferService(meta);

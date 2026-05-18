@@ -11,7 +11,6 @@ namespace Common
     [ServiceContract]
     public interface IPvDataService
     {
-        // TODO: Promeniti return tipe servisa po potrebi
 
         [OperationContract]
         void StartSession(PvMeta meta);

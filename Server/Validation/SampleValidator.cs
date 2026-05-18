@@ -28,11 +28,11 @@ namespace Server.Validation
             if (sample.AcPwrt.HasValue && sample.AcPwrt.Value < 0)
                 return Fail($"AcPwrt je negativan: {sample.AcPwrt}");
 
-            // TODO: Dodati ako treba i za AcCur1
+            // 3. AcCur1
             if(!sample.AcCur1.HasValue)
                 return Fail("AcCur1 ne sme biti sentinel");
 
-            // 3. Naponi > 0 kad nisu null
+            // 4. Naponi > 0 kad nisu null
             if (!sample.DcVolt.HasValue || sample.DcVolt.Value <= 0)
                 return Fail($"DcVolt mora biti > 0: {sample.DcVolt}");
 
@@ -45,7 +45,7 @@ namespace Server.Validation
             if (sample.AcVlt1.HasValue && sample.AcVlt1.Value <= 0)
                 return Fail($"AcVlt1 mora biti > 0: {sample.AcVlt1}");
 
-            // 4. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
+            // 5. Temperatura – realna vrednost (nema posebnog ograničenja osim treshholda koji je u analitici)
             if(!sample.Temper.HasValue)
                 return Fail("Temperatura ne sme biti sentinel");
 
