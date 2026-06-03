@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Server.Storage;
 using Server.Validation;
 using System.Threading;
+using Server.Events;
 
 namespace Server
 {
@@ -30,6 +31,12 @@ namespace Server
         private DateTime _lastActivity;
         private Timer _sessionWatchdog;
 
+        private readonly TransferEventHub _eventHub;
+        public PvDataService(TransferEventHub eventHub)
+        {
+            _eventHub = eventHub;
+        }
+
         [OperationBehavior(AutoDisposeParameters = true)]
         public void EndSession()
         {
@@ -38,15 +45,14 @@ namespace Server
                 Console.WriteLine("[END_SESSION] Nema aktivne sesije");
                 return;
             }
-
-            Console.WriteLine($"[STATUS] Prenos završen... Primljeno redova: {_receivedSamplesCount} ({_procenat:F2}%)");
-            Console.WriteLine("[END_SESSION] Sesija zatvorena, resursi su oslobodjeni");
             CloseCurrentSession();
+            _eventHub.Finish();
         }
 
         [OperationBehavior(AutoDisposeParameters = true)]
         public void PushSample(PvSample sample)
         {
+            _eventHub.Recived();
             if (!_sessionActive)
             {
                 Console.WriteLine("[PUSH_SAMPLE] Nema aktivne sesije");
@@ -60,7 +66,6 @@ namespace Server
             if (!validationResult.IsValid)
             {
                 _rejectWriter.WriteRow(sample, validationResult.Reason);
-
                 Console.WriteLine($"[PUSH_SAMPLE] Odbijen red {sample.RowIndex}: {validationResult.Reason}");
             }
             else
@@ -110,8 +115,7 @@ namespace Server
                 TimeSpan.FromSeconds(10));
 
             _sessionActive = true;
-            Console.WriteLine($"[START_SESSION] Sesija otvorena: {_sessionDir}");
-            Console.WriteLine($"Fajl: {meta.FileName}, Redovi: {meta.TotalRows}, Ucitani redovi: {meta.RowLimitN}");
+            _eventHub.Start();
         }
 
 
