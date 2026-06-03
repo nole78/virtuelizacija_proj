@@ -49,8 +49,9 @@
     <Compile Include="Analytics\DcVoltRangeChecker.cs" />
     <Compile Include="Analytics\ThermalAlarmChecker.cs" />
     <Compile Include="Config\ThresholdConfig.cs" />
+    <Compile Include="Events\ConsoleLogger.cs" />
     <Compile Include="Events\TransferEventHub.cs" />
-    <Compile Include="Events\TrasnferEventArgs.cs" />
+    <Compile Include="Events\TransferEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PvDataService.cs" />
