@@ -13,6 +13,7 @@ using Server.Storage;
 using Server.Validation;
 using System.Threading;
 using Server.Events;
+using Server.Analytics;
 
 namespace Server
 {
@@ -27,6 +28,7 @@ namespace Server
         private bool _sessionActive = false;
         private int _receivedSamplesCount = 0;
         private double _procenat = 0;
+        private CurrentSpikeDetector _spikeDetector;
 
         private DateTime _lastActivity;
         private Timer _sessionWatchdog;
@@ -75,6 +77,9 @@ namespace Server
                 _receivedSamplesCount++;
                 _procenat = _currentMeta.RowLimitN > 0 ? ((double)_receivedSamplesCount / _currentMeta.RowLimitN) * 100 : 0;
                 Console.WriteLine($"[STATUS] prenos u toku... Primljeno redova: {_receivedSamplesCount} ({_procenat:F2}%)");
+
+                // PROVERE
+                _spikeDetector.RunCheck((double)sample.AcCur1);
             }
         }
 
@@ -107,6 +112,7 @@ namespace Server
             _rejectWriter = new RejectWriter(_rejectPath);
 
             _sampleValidator = new SampleValidator();
+            _spikeDetector = new CurrentSpikeDetector(_eventHub);
 
             _lastActivity = DateTime.Now;
 
