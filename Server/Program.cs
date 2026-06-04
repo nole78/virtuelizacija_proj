@@ -1,4 +1,5 @@
 ﻿using Common;
+using Server.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,11 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            PvDataService service = new PvDataService();
+            TransferEventHub hub = new TransferEventHub();
+            ConsoleLogger logger = new ConsoleLogger();
+            logger.Subscribe(hub);
+
+            PvDataService service = new PvDataService(hub);
             ServiceHost host = new ServiceHost(service);
             host.Open();
 
