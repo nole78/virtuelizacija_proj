@@ -8,6 +8,6 @@ namespace Server.Analytics
 {
     public class DcVoltRangeChecker
     {
-        // TODO: Implementirati (Zad 9 i 10)
+        // TODO: Implementirati (Zad 10)
     }
 }
