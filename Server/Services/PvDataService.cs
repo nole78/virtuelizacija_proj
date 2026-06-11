@@ -30,6 +30,7 @@ namespace Server
         private double _procenat = 0;
         private CurrentSpikeDetector _spikeDetector;
         private DcVoltRangeChecker _dcVoltChecker;
+        private ThermalAlarmChecker _thermalAlarmChecker;
 
         private DateTime _lastActivity;
         private Timer _sessionWatchdog;
@@ -82,6 +83,7 @@ namespace Server
                 // PROVERE
                 _spikeDetector.RunCheck((double)sample.AcCur1);
                 _dcVoltChecker.RunCheck((double)sample.DcVolt);
+                _thermalAlarmChecker.RunCheck((double)sample.Temper);
             }
         }
 
@@ -116,6 +118,7 @@ namespace Server
             _sampleValidator = new SampleValidator();
             _spikeDetector = new CurrentSpikeDetector(_eventHub);
             _dcVoltChecker = new DcVoltRangeChecker(_eventHub);
+            _thermalAlarmChecker = new ThermalAlarmChecker(_eventHub);
 
             _lastActivity = DateTime.Now;
 

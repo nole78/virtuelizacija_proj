@@ -22,10 +22,6 @@ namespace Server.Analytics
         }
         public void RunCheck(double dcVolt)
         {
-            /*DC napon van opsega: proveravati DCVOLT po svakom redu; ako vrednost padne ispod
-            DcVoltMin ili poraste iznad DcVoltMax (iz konfiguracije) → podići
-            DcVoltOutOfRangeWarning.*/
-            //Ovo je razdvojeno samo kako bi poruke bile "tacnije"
             if(dcVolt < _dcVoltMin)
             {
                 _transferEventHub.RaiseWarning(new TransferEventArgs(
