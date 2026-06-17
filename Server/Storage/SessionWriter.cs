@@ -10,7 +10,6 @@ namespace Server.Storage
 {
     public class SessionWriter : IDisposable
     {
-        // TODO: Napraviti tako da radi upis u odgovarajuci folder
         private bool _disposed = false;
         private FileStream _fileStream;
         public SessionWriter(string path) 
@@ -28,7 +27,6 @@ namespace Server.Storage
         }
         public void WriteRow(PvSample sample)
         {
-            // TODO: Napraviti tako da se upisuju i ostali podaci, ne samo AcPwrt
             if (_disposed)
                 throw new ObjectDisposedException(nameof(SessionWriter), "Pokušaj pisanja u već zatvoreni SessionWriter.");
             string line =   $"{sample.RowIndex},{sample.Day},{sample.Hour},{sample.AcPwrt},{sample.DcVolt},"

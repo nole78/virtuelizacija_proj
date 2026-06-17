@@ -19,7 +19,6 @@ namespace Client
                 string[] parts = line.Split(',');
                 if (parts.Length < 15) return null;
 
-                //Ovo je samo da obezbedi da ce se vrednosti ispravno citati na ma kojem racunaru (lupam, za decimalne vrednosti . umesto ,)
                 var culture = CultureInfo.InvariantCulture;
 
                 DateTime? dateValue = ParseJulianDate(parts[1], culture);

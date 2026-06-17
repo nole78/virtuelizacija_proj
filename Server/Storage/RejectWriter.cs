@@ -10,7 +10,6 @@ namespace Server.Storage
 {
     public class RejectWriter : IDisposable
     {
-        // TODO: Napraviti tako da radi upis u odgovarajuci folder
         private bool _disposed = false;
         private FileStream _fileStream;
         public RejectWriter(string path) 
