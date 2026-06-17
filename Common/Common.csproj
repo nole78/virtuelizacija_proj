@@ -47,7 +47,6 @@
     <Compile Include="Constants\SentinelValues.cs" />
     <Compile Include="Contracts\IPvDataService.cs" />
     <Compile Include="Exceptions\PvTransferException.cs" />
-    <Compile Include="Exceptions\PvValidationFault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\PvMeta.cs" />
     <Compile Include="Models\PvSample.cs" />

@@ -1,6 +1,7 @@
 ﻿using Client.Csv;
 using Client.Logging;
 using Client.Proxy;
+using Common.Exceptions;
 using Common.PvDataContracts;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,10 @@ namespace Client
                 {
                     // programerska greška
                     Console.WriteLine($"Proxy je disposed: {ex.Message}");
+                }
+                catch(FaultException<PvTransferException> e)
+                {
+                    Console.WriteLine($"ERROR: {e.Detail.Message}");
                 }
                 catch (CommunicationException ex)
                 {

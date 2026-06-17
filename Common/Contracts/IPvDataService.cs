@@ -1,4 +1,5 @@
-﻿using Common.PvDataContracts;
+﻿using Common.Exceptions;
+using Common.PvDataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Common
     {
 
         [OperationContract]
+        [FaultContract(typeof(PvTransferException))]
         void StartSession(PvMeta meta);
 
         [OperationContract]

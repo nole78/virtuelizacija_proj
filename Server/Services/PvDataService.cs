@@ -14,6 +14,7 @@ using Server.Validation;
 using System.Threading;
 using Server.Events;
 using Server.Analytics;
+using Common.Exceptions;
 
 namespace Server
 {
@@ -90,15 +91,14 @@ namespace Server
         [OperationBehavior(AutoDisposeParameters = true)]
         public void StartSession(PvMeta meta)
         {
-            if (meta == null || meta.RowLimitN <= 0)
+            if (meta == null || meta.RowLimitN <= 0 || meta.TotalRows <= 0 || meta.FileName.Equals(string.Empty) || meta.SchemaVersion.Equals(string.Empty))
             {
-                Console.WriteLine("[START_SESSION] Ne validni meta podaci");
-                throw new FaultException("RowLimitN mora biti > 0.");
+                throw new FaultException<PvTransferException>(new PvTransferException("Nevalidni meta podaci!"));
             }
 
             if (_sessionActive)
             {
-                throw new FaultException("Sesija je vec aktivna.");
+                throw new FaultException<PvTransferException>(new PvTransferException("Sesija je vec aktivna!"));
             }
 
             _currentMeta = meta;
