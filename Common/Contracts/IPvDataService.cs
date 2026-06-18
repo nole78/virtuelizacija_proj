@@ -18,9 +18,11 @@ namespace Common
         void StartSession(PvMeta meta);
 
         [OperationContract]
+        [FaultContract(typeof(PvTransferException))]
         void PushSample(PvSample sample);
 
         [OperationContract]
+        [FaultContract(typeof(PvTransferException))]
         void EndSession();
     }
 }
