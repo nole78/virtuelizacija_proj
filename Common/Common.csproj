@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\ChannelNames.cs" />
     <Compile Include="Constants\SentinelValues.cs" />
     <Compile Include="Contracts\IPvDataService.cs" />
     <Compile Include="Exceptions\PvTransferException.cs" />
