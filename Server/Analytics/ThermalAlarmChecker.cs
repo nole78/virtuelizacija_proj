@@ -11,7 +11,7 @@ namespace Server.Analytics
     public class ThermalAlarmChecker
     {
         private readonly TransferEventHub _transferEventHub;
-        private double _overTempThreshlod = 0;
+        private readonly double _overTempThreshlod = 0;
 
         public ThermalAlarmChecker(TransferEventHub transferEventHub)
         {
