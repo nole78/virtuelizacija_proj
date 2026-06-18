@@ -103,6 +103,10 @@ namespace Client
 
                     proxy.EndSession();
                 }
+                catch (FaultException<PvTransferException> e)
+                {
+                    Console.WriteLine($"ERROR: {e.Detail.Message}");
+                }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Greška: {ex.Message}");

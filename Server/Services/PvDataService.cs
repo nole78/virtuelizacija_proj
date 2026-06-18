@@ -47,8 +47,7 @@ namespace Server
         {
             if(!_sessionActive)
             {
-                Console.WriteLine("[END_SESSION] Nema aktivne sesije");
-                return;
+                throw new FaultException<PvTransferException>(new PvTransferException("Nema aktivne sesije!"));
             }
             CloseCurrentSession();
             _eventHub.Finish();
@@ -60,8 +59,7 @@ namespace Server
             _eventHub.Recived();
             if (!_sessionActive)
             {
-                Console.WriteLine("[PUSH_SAMPLE] Nema aktivne sesije");
-                return;
+                throw new FaultException<PvTransferException>(new PvTransferException("Nema aktivne sesije!"));
             }
 
             _lastActivity = DateTime.Now;
